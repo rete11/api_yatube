@@ -21,7 +21,7 @@ class PostViewSet(viewsets.ModelViewSet):
 
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [IsAuthenticated, AuthorPermission]
+    permission_classes = (IsAuthenticated, AuthorPermission)
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
@@ -32,7 +32,7 @@ class CommentViewSet(viewsets.ModelViewSet):
     для модели Comment."""
 
     serializer_class = CommentSerializer
-    permission_classes = [IsAuthenticated, AuthorPermission]
+    permission_classes = (IsAuthenticated, AuthorPermission)
 
     def perform_create(self, serializer):
         post = get_object_or_404(Post, id=self.kwargs.get("post_id"))
